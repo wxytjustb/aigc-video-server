@@ -5,7 +5,7 @@ import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as fs from 'fs'
 import vuePlugin from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+// import vueDevTools from 'vite-plugin-vue-devtools'
 import VueFilePathPlugin from './vitePlugin/componentName/index.js'
 import { svgBuilder } from 'vite-auto-import-svg'
 import { AddSecret } from './vitePlugin/secret'
@@ -106,7 +106,7 @@ export default ({ mode }) => {
     optimizeDeps,
     plugins: [
       process.env.VITE_POSITION === 'open' &&
-      vueDevTools({ launchEditor: process.env.VITE_EDITOR }),
+      // vueDevTools({ launchEditor: process.env.VITE_EDITOR }),
       legacyPlugin({
         targets: [
           'Android > 39',

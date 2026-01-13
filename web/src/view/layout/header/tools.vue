@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center mx-4 gap-4">
-    <el-tooltip class="" effect="dark" content="视频教程" placement="bottom">
+    <!-- <el-tooltip class="" effect="dark" content="视频教程" placement="bottom">
       <el-dropdown @command="toDoc">
         <span class="w-8 h-8 p-2 rounded-full flex items-center justify-center shadow border border-gray-200 dark:border-gray-600 cursor-pointer border-solid">
           <el-icon>
@@ -18,7 +18,7 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-    </el-tooltip>
+    </el-tooltip> -->
 
     <el-tooltip class="" effect="dark" content="搜索" placement="bottom">
         <span class="w-8 h-8 p-2 rounded-full flex items-center justify-center shadow border border-gray-200 dark:border-gray-600 cursor-pointer border-solid">

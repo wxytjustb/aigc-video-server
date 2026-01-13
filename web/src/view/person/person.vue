@@ -3,21 +3,21 @@
     <!-- 顶部个人信息卡片 -->
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm mb-8">
       <!-- 顶部背景图 -->
-      <div class="h-48 bg-blue-50 dark:bg-slate-600 relative">
+      <!-- <div class="h-48 bg-blue-50 dark:bg-slate-600 relative">
         <div class="absolute inset-0 bg-pattern opacity-7"></div>
-      </div>
+      </div> -->
 
       <!-- 个人信息区 -->
       <div class="px-8 -mt-20 pb-8">
         <div class="flex flex-col lg:flex-row items-start gap-8">
           <!-- 左侧头像 -->
-          <div class="profile-avatar-wrapper flex-shrink-0 mx-auto lg:mx-0">
+          <!-- <div class="profile-avatar-wrapper flex-shrink-0 mx-auto lg:mx-0">
             <SelectImage
                 v-model="userStore.userInfo.headerImg"
                 file-type="image"
                 rounded
             />
-          </div>
+          </div> -->
 
           <!-- 右侧信息 -->
           <div class="flex-1 pt-12 lg:pt-20 w-full">
@@ -31,12 +31,12 @@
                     class="text-2xl font-bold flex items-center gap-3 text-gray-800 dark:text-gray-100"
                   >
                     {{ userStore.userInfo.nickName }}
-                    <el-icon
+                    <!-- <el-icon
                       class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200"
                       @click="openEdit"
                     >
                       <edit />
-                    </el-icon>
+                    </el-icon> -->
                   </div>
                   <div v-else class="flex items-center">
                     <el-input v-model="nickName" class="w-48 mr-4" />
@@ -49,7 +49,7 @@
                   </div>
                 </div>
 
-                <div
+                <!-- <div
                   class="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8 text-gray-500 dark:text-gray-400"
                 >
                   <div class="flex items-center gap-2">
@@ -64,15 +64,15 @@
                     <el-icon><user /></el-icon>
                     <span>技术部·前端事业群</span>
                   </div>
-                </div>
+                </div> -->
               </div>
 
-              <div class="flex gap-4 mt-4">
+              <!-- <div class="flex gap-4 mt-4">
                 <el-button type="primary" plain icon="message">
                   发送消息
                 </el-button>
                 <el-button icon="share"> 分享主页 </el-button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-800 rounded-xl p-6 profile-card">
+        <!-- <div class="bg-white dark:bg-slate-800 rounded-xl p-6 profile-card">
           <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
             <el-icon class="text-blue-500"><medal /></el-icon>
             技能特长
@@ -154,11 +154,11 @@
               添加技能
             </el-button>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- 右侧内容区 -->
-      <div class="lg:col-span-8">
+      <!-- <div class="lg:col-span-8">
         <div class="bg-white dark:bg-slate-800 rounded-xl p-6 profile-card">
           <el-tabs class="custom-tabs">
             <el-tab-pane>
@@ -230,7 +230,7 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- 弹窗 -->

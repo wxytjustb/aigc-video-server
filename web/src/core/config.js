@@ -6,7 +6,7 @@ import packageInfo from '../../package.json'
 const greenText = (text) => `\x1b[32m${text}\x1b[0m`
 
 export const config = {
-  appName: 'Gin-Vue-Admin',
+  appName: 'Aigc-Video',
   showViteLogo: true,
   keepAliveTabs: false,
   logs: []
