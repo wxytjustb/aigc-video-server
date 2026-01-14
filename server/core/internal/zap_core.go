@@ -3,6 +3,11 @@ package internal
 import (
 	"context"
 	"fmt"
+	"io"
+	"os"
+	"strings"
+	"time"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
@@ -10,9 +15,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/stacktrace"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"os"
-	"strings"
-	"time"
 )
 
 type ZapCore struct {
@@ -31,6 +33,14 @@ func NewZapCore(level zapcore.Level) *ZapCore {
 }
 
 func (z *ZapCore) WriteSyncer(formats ...string) zapcore.WriteSyncer {
+
+	if global.GVA_CONFIG.Zap.Director == "" {
+		if global.GVA_CONFIG.Zap.LogInConsole {
+			return zapcore.AddSync(os.Stdout)
+		}
+		return zapcore.AddSync(io.Discard)
+	}
+
 	cutter := NewCutter(
 		global.GVA_CONFIG.Zap.Director,
 		z.level.String(),

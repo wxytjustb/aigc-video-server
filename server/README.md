@@ -52,3 +52,24 @@
 | `--timer` | timer | 定时器接口封装 |
 | `--upload`      | oss                  | oss接口封装        |
 
+
+
+# 首次安装
+
+1. 创建数据库aigc-video
+
+2. 在该数据库导入init.sql
+
+# 默认管理员账号密码
+
+```shell
+账号: admin
+密码: SuperAdmin123321//
+```
+
+# 更新swag 文档
+
+```shell
+cd server
+swag init
+```

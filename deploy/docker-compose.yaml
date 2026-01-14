@@ -1,0 +1,79 @@
+services:
+  web:
+    build:
+      context: ../web
+      dockerfile: ../web/Dockerfile
+    container_name: video-web
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      - server
+    networks:
+      - video-net
+    env_file:
+      - ../.env
+
+  server:
+    build:
+      context: ../server
+      dockerfile: ../server/Dockerfile
+    container_name: video-server
+    restart: always
+    ports:
+      - '8888:8888'
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - video-net
+    env_file:
+      - ../.env
+
+  mysql:
+    image: hub.roky.work/library/mysql:5.7.39
+    container_name: video-mysql
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-AigcVideo@123456}
+      MYSQL_DATABASE: 'aigc-video'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD:-AigcVideo@123456}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ../server/sql:/docker-entrypoint-initdb.d:ro
+    networks:
+      - video-net
+    env_file:
+      - ../.env
+
+  redis:
+     image: hub.roky.work/library/redis:6.0.6
+     container_name: video-redis
+     command: redis-server --appendonly yes
+     restart: always
+     ports:
+       - '6379:6379'
+     healthcheck:
+       test: ["CMD", "redis-cli", "ping"]
+       interval: 10s
+       timeout: 5s
+       retries: 3
+     volumes:
+       - ./redis_data:/data
+     networks:
+       - video-net
+     env_file:
+       - ../.env
+
+networks:
+  video-net:
+    driver: bridge
