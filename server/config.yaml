@@ -249,3 +249,39 @@ zap:
     show-line: true
     log-in-console: true
     retention-day: -1
+casdoor:
+    endpoint: "https://auth.rowenatech.com"
+    client-id: "62c109b49d93a5985f06"
+    client-secret: "ab88cf1d8ca82e7f24eebe96496fab3bd53783b2"
+    certificate: |
+        -----BEGIN CERTIFICATE-----
+        MIIE3TCCAsWgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMCgxEDAOBgNVBAoTB3Ry
+        aXBsZWMxFDASBgNVBAMMC2NlcnRfZjYybDY5MB4XDTI1MDMyNjA1NTYyMloXDTQ1
+        MDMyNjA1NTYyMlowKDEQMA4GA1UEChMHdHJpcGxlYzEUMBIGA1UEAwwLY2VydF9m
+        NjJsNjkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCf4/wCJh1lDZnd
+        kRM+BQqbPnSBsUmyG/0xcVtwonhLrrIUlwpmQtTVOD5o7yvwjURQoLfB7PKw287u
+        E1+Xol109dJN3bjQWBYtRXo7/7Fug+fmhlrwTF7duT6OD60UyGu9ZolRDWPwqde8
+        eYZ5Y6dWuveh/bHZZawxdcQvBfrmUF9RI9jSgeGfgqCyeKSz9YiFPM/whx2ikJ69
+        MebYY1pu0x/B4ztJW0L+pgRCcwZxCVqsVNYptaixb52Ust8f/dzyhylxHceZmPLc
+        0i+sD07XWcv7TA/oDRhrcgzbsuLrBkgs0O1uGD9dl04Y3cbM0JeYBKD9W8H1Bw5z
+        SvgzWmuIATXbcSKnoxUGbxbg/9nxvJuJ9S8wNTvSoUNML03/GFwByJd7kzCZFzHJ
+        IyPwkkDR+kdJ1EBKV4T38d7Xfbb+XwJyDM1cbH5tTA9pxlrN8vHdqwjgZGEv20vh
+        7Dv9VBXXr6+zk5ONB+zGI0KP498kZFcdlyV9+aafoJXvBVfZ3B0Ag6cJ071WWYJZ
+        ktGgYCquGm93AslUrP4VFE90aG/V0klhiNPdAt48eT4F4smDsJOcZtXsyXS45N4x
+        5eZq2QTph2ytaE7At7AOk3I3L5auZza4oPsfWeLUuvvnQuilLp9+9xRJLSmhjegS
+        JKJ3/K7b3U0ZZSQEKFuQ53y/5/xkDwIDAQABoxAwDjAMBgNVHRMBAf8EAjAAMA0G
+        CSqGSIb3DQEBCwUAA4ICAQAyEvyKMF85d6beBCRcH4Tlootu1ASMa92xQWx91+0N
+        dU3fPMrnUGD5G9coAf10VEQ8WPO9Ji80JiqxTGKWBUzihchXqLT37Xao4eR43zAr
+        BYS4/gPNxRtbO8E4vy37/I/SdG1YyOXYCGyguWoKoFLkQzvU4dxlVe7EJz2QoWc9
+        RDliuz2rKvuRIAPx0Ug6uMyeK2c8WdpEiob6qOO+BZZHA8H/o/6kgEBcxFFP38fU
+        cpo5hZWMDUp2XRB/ELKvga5OkwsY2mCBPIcqokxT7Hm80KtvLuDoPZjOYsrFShlV
+        t4PQQpzwmuNi1UdsQx9aJYjoJ5KvX7K6iAw/NBnJkj/3btHYsMwGyQ7KFjGa/v7j
+        Xk3q6NqYjN2MZQHQU33ICviThz9NDejgY42eoz1WT4RyBXsGGb4DGCVryIevZi5y
+        zgAm73CUWI4rDYYlNCxF4t0PHt+TRI0V8bfqFxObOsQRdSC16zrDbibEkgzD5P+B
+        PWhDiBB/XTwwu525uskGBFHKw8DF0KGK7Xk1uCnbn4V/UmFCC6R/a99UuhgP+M6/
+        n/AqaqJxs873jV0iTSD9RXglVrfZT1lnWd0huflqoocBw+/VxMBSas5Iw0b05634
+        /NpaFP1277hNBLx3DFO41+42BsXUzIM3p/E6ak2MmshfCHagUO2pm+lskDEkO4ze
+        5w==
+        -----END CERTIFICATE-----
+    organization-name: "triplec"
+    application-name: "AIGC"
