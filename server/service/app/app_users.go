@@ -45,32 +45,33 @@ func (appUsersService *AppUsersService) GetAppUsers(ctx context.Context, ID stri
 }
 
 // GetAppUsersInfoList 分页获取appUsers表记
-// GetAppUsersInfoList 分页获取appUsers表记录
 func (appUsersService *AppUsersService) GetAppUsersInfoList(ctx context.Context, info appReq.AppUsersSearch) (list []app.AppUsers, total int64, err error) {
-func (appUsersService *AppUsersService)GetAppUsersInfoList(ctx context.Context, info appReq.AppUsersSearch) (list []app.AppUsers, total int64, err error) {
 	limit := info.PageSize
-	// 创建db
-    // 创建db
+	if limit == 0 {
+		limit = 10
+	}
+	offset := (info.Page - 1) * limit
+
 	var appUserss []app.AppUsers
+	db := global.GVA_DB.WithContext(ctx).Model(&app.AppUsers{})
+
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.CreatedAtRange) == 2 {
 		db = db.Where("created_at BETWEEN ? AND ?", info.CreatedAtRange[0], info.CreatedAtRange[1])
 	}
 
-    
+	// 获取总记录数
+	err = db.Count(&total).Error
 	if err != nil {
-		return
+		return nil, 0, err
 	}
-    }
 
-		db = db.Limit(limit).Offset(offset)
-	}
-    }
-
+	// 分页并获取数据
+	err = db.Limit(limit).Offset(offset).Find(&appUserss).Error
 	return appUserss, total, err
-	return  appUserss, total, err
+}
 func (appUsersService *AppUsersService) GetAppUsersPublic(ctx context.Context) {
 	// 此方法为获取数据源定义的数据
 	// 请自行实现
-    // 请自行实现
+	// 请自行实现
 }
