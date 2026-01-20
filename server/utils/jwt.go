@@ -103,3 +103,27 @@ func SetRedisJWT(jwt string, userName string) (err error) {
 	err = global.GVA_REDIS.Set(context.Background(), userName, jwt, timer).Err()
 	return err
 }
+
+// CreateAppClaims 创建App端claims，Audience为APP
+func (j *JWT) CreateAppClaims(id uint, casdoorId string) request.AppClaims {
+	bf, _ := ParseDuration(global.GVA_CONFIG.JWT.BufferTime)
+	ep, _ := ParseDuration(global.GVA_CONFIG.JWT.ExpiresTime)
+	claims := request.AppClaims{
+		ID:         id,
+		CasdoorId:  casdoorId,
+		BufferTime: int64(bf / time.Second),
+		RegisteredClaims: jwt.RegisteredClaims{
+			Audience:  jwt.ClaimStrings{"APP"},
+			NotBefore: jwt.NewNumericDate(time.Now().Add(-1000)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(ep)),
+			Issuer:    global.GVA_CONFIG.JWT.Issuer,
+		},
+	}
+	return claims
+}
+
+// CreateAppToken 创建App端token
+func (j *JWT) CreateAppToken(claims request.AppClaims) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(j.SigningKey)
+}

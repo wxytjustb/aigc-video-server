@@ -19,3 +19,11 @@ type BaseClaims struct {
 	NickName    string
 	AuthorityId uint
 }
+
+// AppClaims 用于App端token
+type AppClaims struct {
+	ID         uint
+	CasdoorId  string
+	BufferTime int64
+	jwt.RegisteredClaims
+}

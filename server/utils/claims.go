@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
 	"github.com/gin-gonic/gin"
@@ -144,5 +145,12 @@ func LoginToken(user system.Login) (token string, claims systemReq.CustomClaims,
 		AuthorityId: user.GetAuthorityId(),
 	})
 	token, err = j.CreateToken(claims)
+	return
+}
+
+func LoginAppUserToken(user app.AppUsers) (token string, claims systemReq.AppClaims, err error) {
+	j := NewJWT()
+	claims = j.CreateAppClaims(user.ID, *user.CasdoorId)
+	token, err = j.CreateAppToken(claims)
 	return
 }
