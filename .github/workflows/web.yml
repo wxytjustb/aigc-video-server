@@ -1,0 +1,48 @@
+name: Web CI/CD
+
+on:
+  push:
+    paths:
+      - 'web/**'
+  pull_request:
+    paths:
+      - 'web/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Print debug info
+        run: |
+          echo "web build"
+          
+      - name: Login to Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.HUB_HOST }}
+          username: ${{ secrets.HUB_USERNAME }}
+          password: ${{ secrets.HUB_PASSWORD }}
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: web/
+          push: true
+          tags: |
+            ${{ secrets.HUB_HOST }}/aigc-video/aigc-video-web-admin:0.0.${{ github.run_number }}
+            ${{ secrets.HUB_HOST }}/aigc-video/aigc-video-web-admin:latest
+            
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Run tests
+        run: echo "web test" 

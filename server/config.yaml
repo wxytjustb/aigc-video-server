@@ -137,10 +137,10 @@ mssql:
     singular: false
     log-zap: false
 mysql:
-    prefix: ""
+    prefix: "10.10.100.11"
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: aigc-video
+    db-name: aigc_video
     username: root
     password: "123456"
     path: host.docker.internal
@@ -188,7 +188,7 @@ qiniu:
     use-cdn-domains: false
 redis:
     name: ""
-    addr: 127.0.0.1:6379
+    addr: 10.10.100.11:6379
     password: ""
     db: 0
     useCluster: false

@@ -1,0 +1,31 @@
+name: Main CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-all:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up environment
+        run: |
+          echo "Setting up environment..."
+          echo "Build triggered by ${{ github.actor }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          
+  deploy:
+    needs: build-all
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: Deploy to production
+        run: echo "Deploying to production environment..." 
