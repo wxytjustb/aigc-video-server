@@ -283,3 +283,11 @@ mcp:
     url_prefix: ''
     addr: 8889
     separate: false
+
+casdoor:
+    endpoint: "https://your-casdoor.example"
+    client-id: "your-client-id"
+    client-secret: "your-client-secret"
+    certificate: ""
+    organization-name: "your-organization"
+    application-name: "your-application"
