@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"time"
 
 	appModel "github.com/flipped-aurora/gin-vue-admin/server/model/app"
@@ -31,14 +32,76 @@ type LoginApi struct{}
 // @Router   /login/casdoorLogin [post]
 func (a *LoginApi) CasdoorLogin(c *gin.Context) {
 	ctx := c.Request.Context()
+
+	// 记录请求信息
+	global.GVA_LOG.Info("Casdoor登录请求开始",
+		zap.String("method", c.Request.Method),
+		zap.String("url", c.Request.URL.String()),
+		zap.String("remote_addr", c.ClientIP()),
+		zap.String("user_agent", c.Request.UserAgent()),
+	)
+
+	// 尝试从多个位置获取 code 参数：query、form、body
 	code := c.Query("code")
+	if code == "" {
+		code = c.PostForm("code")
+	}
+	if code == "" {
+		// 尝试从 JSON body 中获取
+		var jsonBody struct {
+			Code  string `json:"code"`
+			State string `json:"state"`
+		}
+		if err := c.ShouldBindJSON(&jsonBody); err == nil {
+			code = jsonBody.Code
+		}
+	}
+
+	state := c.Query("state")
+	if state == "" {
+		state = c.PostForm("state")
+	}
+
+	// 记录接收到的参数（不记录敏感信息）
+	global.GVA_LOG.Info("Casdoor登录请求参数",
+		zap.String("code_length", fmt.Sprintf("%d", len(code))),
+		zap.Bool("code_empty", code == ""),
+		zap.String("state", state),
+		zap.Any("query_params", c.Request.URL.Query()),
+	)
+
+	// 验证 code 参数
+	if code == "" {
+		global.GVA_LOG.Error("Casdoor登录失败: authorization code 为空",
+			zap.String("method", c.Request.Method),
+			zap.String("url", c.Request.URL.String()),
+			zap.Any("query_params", c.Request.URL.Query()),
+			zap.String("content_type", c.GetHeader("Content-Type")),
+		)
+		response.FailWithMessage("登录失败: authorization code 不能为空，请确保从 Casdoor 授权回调中正确获取 code 参数", c)
+		return
+	}
 
 	// 调用服务层获取用户信息
 	user, err := loginService.CasdoorLogin(ctx, code)
 	if err != nil {
+		global.GVA_LOG.Error("Casdoor登录失败",
+			zap.String("code_length", fmt.Sprintf("%d", len(code))),
+			zap.Error(err),
+		)
 		response.FailWithMessage("登录失败: "+err.Error(), c)
 		return
 	}
+
+	global.GVA_LOG.Info("Casdoor登录成功",
+		zap.String("casdoor_id", func() string {
+			if user.CasdoorId != nil {
+				return *user.CasdoorId
+			}
+			return ""
+		}()),
+		zap.Uint("user_id", user.ID),
+	)
 
 	// 调用 TokenNext 处理 token 生成和登录响应
 	a.TokenNext(c, *user)

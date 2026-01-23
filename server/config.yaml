@@ -35,18 +35,21 @@ cloudflare-r2:
     access-key-id: xxx_key_id
     secret-access-key: xxx_secret_key
 cors:
-    mode: strict-whitelist
+    # 跨域模式: allow-all(允许所有) | strict-whitelist(严格白名单)
+    mode: allow-all
     whitelist:
-        - allow-origin: example1.com
-          allow-methods: POST, GET
-          allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id
-          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
-          allow-credentials: true
-        - allow-origin: example2.com
-          allow-methods: GET, POST
-          allow-headers: content-type
-          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
-          allow-credentials: true
+        # 示例配置：如果需要使用白名单模式，请将 mode 改为 strict-whitelist
+        # 并配置实际的前端域名
+        # - allow-origin: http://localhost:8080
+        #   allow-methods: POST, GET, OPTIONS, DELETE, PUT, PATCH, HEAD
+        #   allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id,Origin,X-Requested-With,Accept
+        #   expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, New-Token, New-Expires-At
+        #   allow-credentials: true
+        # - allow-origin: https://yourdomain.com
+        #   allow-methods: POST, GET, OPTIONS, DELETE, PUT, PATCH, HEAD
+        #   allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id,Origin,X-Requested-With,Accept
+        #   expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, New-Token, New-Expires-At
+        #   allow-credentials: true
 db-list:
     - type: ""
       alias-name: ""
@@ -137,14 +140,12 @@ mssql:
     singular: false
     log-zap: false
 mysql:
-    prefix: "10.10.100.11"
+    path: "10.10.100.11"    
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
     db-name: aigc_video
     username: root
     password: "123456"
-    path: host.docker.internal
-    engine: ""
     log-mode: error
     max-idle-conns: 10
     max-open-conns: 100

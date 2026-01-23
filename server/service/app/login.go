@@ -17,7 +17,13 @@ type LoginService struct{}
 
 // CasdoorLogin Casdoor OAuth 2.0 登录 - 只处理用户信息，不生成 token
 func (s *LoginService) CasdoorLogin(ctx context.Context, code string) (*appModel.AppUsers, error) {
+	// 验证 code 参数
+	if code == "" {
+		return nil, errors.New("authorization code 不能为空")
+	}
+
 	cfg := global.GVA_CONFIG.Casdoor
+
 	if cfg.Endpoint == "" || cfg.ClientID == "" || cfg.ClientSecret == "" {
 		return nil, errors.New("casdoor 配置不完整")
 	}
